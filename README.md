@@ -53,7 +53,7 @@ $ npx prisma migrate deploy
 
 #### seed db
 ```
-$ npx prisma db seed
+$ npx prisma migrate dev --name init
 ```
 seed script will add IATA aiport code to `Airport` table and add following 2 users to `User` table to test API.
 | username | code (IATA 2 letter airline code)|
@@ -100,11 +100,20 @@ $ docker-compose down
 ## Try API endpoints
 There is only airport and user data is set in DB by seed script. To test flight reservation you must first add the flights then you can book a flight.
 
-
+------------------------------------------------------------------------------------------
 <summary><code>POST</code> <code><b>/login</b></code> <code>(login to get TOKEN)</code></summary>
 To add/delete flight, you need to be autheticated. So let's start by login.
 
 Login endpoint receive `username` and `password` via POST method and return `token` in json. `token` will be expired after 10minutes.
+
+##### users
+there is 2 users are added by seed script. please use these username and password to login.
+|username|password|
+|--------|--------|
+|"Wizz Air"|"wizzair"|
+|"Ryanair|"ryanair"|
+
+**yes. they are my favourite airlines*
 
 ##### parameters
 |name|type|format|description|
