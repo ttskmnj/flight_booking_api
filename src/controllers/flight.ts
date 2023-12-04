@@ -92,7 +92,7 @@ flightRouter.post("/", authenticate, async (req: Request, res: Response) => {
     res.status(200).send(flight);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: `failed to create flight }` });
+    res.status(500).json({ error: `failed to create flight` });
   }
 });
 
