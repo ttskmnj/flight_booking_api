@@ -1,0 +1,31 @@
+version: "3.7"
+
+services: 
+  pg:
+    image: postgres
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    env_file: 
+      - ./.env
+    environment:
+      - POSTGRES_USER=${POSTGRESDB_USER}
+      - POSTGRES_PASSWORD=${POSTGRESDB_ROOT_PASSWORD}
+      - POSTGRES_DB=${POSTGRESDB_DATABASE}
+    ports:
+      - 5433:5432
+  api:
+    build: ./
+    env_file: 
+      - ./.env
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - SECRET=${SECRET}
+    ports:
+      - 3001:3000
+    depends_on:
+      pg:
+        condition: service_healthy
