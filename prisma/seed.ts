@@ -5,7 +5,6 @@ import bcrypt from "bcrypt";
 const prisma = new PrismaClient();
 
 const main = async () => {
-
   console.log("##################################### \n add users");
   const wizzair = await prisma.user.upsert({
     where: {
@@ -15,7 +14,8 @@ const main = async () => {
     create: {
       name: "Wizz Air",
       code: "W6",
-      hashedPass: "$2b$12$uPwgrBoXGBQmo4OnYZoVIe.UYc6EocKno9JFs/tl.bqJHI5SVyueC",
+      hashedPass:
+        "$2b$12$uPwgrBoXGBQmo4OnYZoVIe.UYc6EocKno9JFs/tl.bqJHI5SVyueC",
     },
   });
 
@@ -27,7 +27,8 @@ const main = async () => {
     create: {
       name: "Ryanair",
       code: "FR",
-      hashedPass: "$2b$12$X5jpdivh.cb0GUI6HYBSz.DwNHhXt1ABmVqOX1zLO4JGqSiETYO82",
+      hashedPass:
+        "$2b$12$X5jpdivh.cb0GUI6HYBSz.DwNHhXt1ABmVqOX1zLO4JGqSiETYO82",
     },
   });
 
