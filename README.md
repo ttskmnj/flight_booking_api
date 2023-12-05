@@ -98,7 +98,9 @@ $ docker-compose down
 
 
 ## Try API endpoints
-There is only airport and user data is set in DB by seed script. To test flight reservation you must first add the flights then you can book a flight.
+
+There is only airport and user data is set in DB by seed script. To test flight reservation you must first add the flights then you can book a flight.<br>
+*\*if you run API on docker-compose, please choose port 3001*
 
 ------------------------------------------------------------------------------------------
 <summary><code>POST</code> <code><b>/login</b></code> <code>(login to get TOKEN)</code></summary>
@@ -107,7 +109,7 @@ To add/delete flight, you need to be autheticated. So let's start by login.
 Login endpoint receive `username` and `password` via POST method and return `token` in json. `token` will be expired after 10minutes.
 
 ##### users
-there is 2 users are added by seed script. please use these username and password to login.
+2 users are added by seed script. please use these username and password to login.
 |username|password|
 |--------|--------|
 |"Wizz Air"|"wizzair"|
@@ -204,6 +206,12 @@ $ curl -X POST http://localhost:3000/flight
 }
 
 ```
+##### flight number
+flight number is consists of `airline code` and `index`. 
+- `airline code`: 2 letter IATA code for each airlines and it is save as `code` in User table.
+- `index`: index number for each airline's flight
+
+flight number `FR384` means that is flight of Ryanair(`FR`) and index number is `384`. When airline add flight, hightest index from the same airline will be taken and add 1 to it then it will be used for index number for newly added flight.
 
 
 <summary><code>DELETE</code> <code><b>/flight</b></code> <code>(delete flight :TOKEN authentication needed)</code></summary>
