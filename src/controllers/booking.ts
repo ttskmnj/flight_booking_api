@@ -39,6 +39,11 @@ const genConfirmNumber = async () => {
 bookingRouter.post("/", async (req: Request, res: Response) => {
   const { flightId, firstName, lastName } = req.body;
 
+  // check if flightId is number
+  if (!Number(flightId)) {
+    return res.status(400).json({ error: `invalid flight id` });
+  }
+
   // get flight information
   const flight = await prisma.flight.findFirst({
     select: {
@@ -46,10 +51,10 @@ bookingRouter.post("/", async (req: Request, res: Response) => {
       bookings: true,
     },
     where: {
-      id: flightId,
+      id: Number(flightId),
     },
   });
-  ``;
+
   // check flight exist and  booking availability
   if (!flight) {
     return res.status(400).json({ error: `flight id: ${flightId} not found` });
